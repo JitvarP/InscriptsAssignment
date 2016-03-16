@@ -1,15 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground_grey">
 
-    <TextView
-        android:padding="10dp"
-        android:id="@+id/message"
-        android:gravity="center"
-        android:text="Message"
+    <RelativeLayout
+        android:id="@+id/layout_receiver"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp">
+        <ImageView
+            android:id="@+id/img_user1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_user1"
+            />
+
+        <TextView
+            android:layout_toRightOf="@+id/img_user1"
+            android:padding="20dp"
+            android:id="@+id/message"
+            android:gravity="center"
+            android:text="message"
+            android:background="@drawable/bubble1"
+            android:layout_marginRight="30dp"
+            android:textColor="@color/colorBackground_grey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/date1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="35dp"
+            android:textSize="11sp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/message"
+            android:textColor="@color/colorAccent"
+            android:text="Date00"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_sender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp">
+        <ImageView
+            android:id="@+id/img_user2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_user2"
+            />
+
+        <TextView
+            android:layout_toLeftOf="@+id/img_user2"
+            android:padding="20dp"
+            android:id="@+id/message2"
+            android:textColor="@color/colorBackground_grey"
+            android:gravity="center"
+            android:text="message"
+            android:background="@drawable/bubble2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/date2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="11sp"
+            android:textColor="@color/colorAccent"
+            android:layout_below="@+id/message2"
+            android:text="Date00"/>
+
+
+    </RelativeLayout>
+
 
 </LinearLayout>

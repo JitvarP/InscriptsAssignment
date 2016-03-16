@@ -17,7 +17,7 @@ import java.util.List;
 public class MessageDAO {
 
     private SQLiteDatabase database;
-    private DBHelper dbHelper;
+    private static DBHelper dbHelper;
 
     private String[] allColumns = {
             DBHelper.COLUMN_ID,
@@ -42,13 +42,13 @@ public class MessageDAO {
         ContentValues values = new ContentValues();
         values.put(DBHelper.COLUMN_MESSAGE, messageVO.getMessage());
         values.put(DBHelper.COLUMN_ROLE, messageVO.getRole());
-        values.put(DBHelper.COLUMN_TIMESTAMP , messageVO.getTimestamp());
+        values.put(DBHelper.COLUMN_TIMESTAMP, messageVO.getTimestamp());
         database.insert(DBHelper.TABLE_MESSAGE, null, values);
     }
 
     public List<MessageVO> getAllMessages() {
         List<MessageVO> messageVOs = new ArrayList<>();
-        Cursor cursor = database.query(DBHelper.TABLE_MESSAGE,allColumns, null, null, null, null, null);
+        Cursor cursor = database.query(DBHelper.TABLE_MESSAGE,allColumns, null, null, null, null, DBHelper.COLUMN_TIMESTAMP);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -61,6 +61,20 @@ public class MessageDAO {
         return messageVOs;
     }
 
+    //Assumming that the time stamp is unique for every message ideally every message showld have the unique resource id
+    public MessageVO getMessageByTimestamp(long timestamp){
+
+        String whereClause = DBHelper.COLUMN_TIMESTAMP +" = "+timestamp;
+        Cursor cursor = database.query(DBHelper.TABLE_MESSAGE, allColumns, whereClause, null, null, null, DBHelper.COLUMN_TIMESTAMP);
+        cursor.moveToFirst();
+        MessageVO messageVO = null;
+        if(!cursor.isAfterLast()){
+            messageVO = cursorToMessage(cursor);
+        }
+        cursor.close();
+        return messageVO;
+    }
+
 
     private MessageVO cursorToMessage(Cursor cursor) {
         MessageVO messageVO = new MessageVO();
@@ -69,5 +83,13 @@ public class MessageDAO {
         messageVO.setRole(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ROLE)));
         messageVO.setTimestamp(cursor.getLong(cursor.getColumnIndex(DBHelper.COLUMN_TIMESTAMP)));
         return messageVO;
+    }
+
+    public static DBHelper getDbHelper() {
+        return dbHelper;
+    }
+
+    public void setDbHelper(DBHelper dbHelper) {
+        MessageDAO.dbHelper = dbHelper;
     }
 }
